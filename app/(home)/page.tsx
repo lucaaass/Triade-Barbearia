@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import Header from "../_components/header";
 import { ptBR } from "date-fns/locale";
-import Search from "./_components/search";
+// import Search from "./_components/search";
 import BookingItem from "../_components/booking-item";
 import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
@@ -49,9 +49,9 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className="px-5 mt-6">
+      {/* <div className="px-5 mt-6">
         <Search />
-      </div>
+      </div> */}
 
       <div className="mt-6">
         {confirmedBookings.length > 0 && (
@@ -82,7 +82,7 @@ export default async function Home() {
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Meus parceiros</h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {recommendedBarbershops.map((barbershop:any) => (
+          {barbershops.map((barbershop:any) => (
             <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>

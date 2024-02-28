@@ -135,6 +135,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
               src={service.imageUrl}
               fill
               style={{ objectFit: "contain" }}
+             
               alt={service.name}
             />
           </div>
