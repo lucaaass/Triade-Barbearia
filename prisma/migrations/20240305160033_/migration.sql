@@ -21,6 +21,16 @@ CREATE TABLE "Barbershop" (
 );
 
 -- CreateTable
+CREATE TABLE "Partner" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+
+    CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Service" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,

@@ -7,17 +7,14 @@ import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
+import PartnerItem from "./_components/partners-item";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
+  const [barbershops, partners, confirmedBookings] = await Promise.all([
     db.barbershop.findMany({}),
-    db.barbershop.findMany({
-      orderBy: {
-        id: "asc",
-      },
-    }),
+    db.partner.findMany({ }),
     session?.user
       ? db.booking.findMany({
           where: {
@@ -69,9 +66,9 @@ export default async function Home() {
       <div className="mt-6">
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Fazer um agendamento</h2>
 
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+        <div className="flex justify-center px-5">
           {barbershops.map((barbershop:any) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
+            <div key={barbershop.id} className="min-w-[88vw] max-w-[88vw]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>
           ))}
@@ -82,9 +79,9 @@ export default async function Home() {
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">Meus parceiros</h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop:any) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
-              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          {partners.map((partner:any) => (
+            <div key={partner.id} className="min-w-[167px] max-w-[167px]">
+              <PartnerItem key={partner.id} partner={partner} />
             </div>
           ))}
         </div>

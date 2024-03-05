@@ -52,13 +52,11 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
       <div className="px-5 pt-3 pb-6 border-b border-solid border-secondary">
         <h1 className="text-xl font-bold">{barbershop.name}</h1>
         <div className="flex items-center gap-1 mt-2">
-          <MapPinIcon className="text-primary" size={18} />
+        <a href="https://www.google.com.br/maps/place/R.+Augusta+Teixeira+Rodrigues,+4044+-+Aglomera%C3%A7%C3%A3o+Urbana+de+Jundia%C3%AD,+Jundia%C3%AD+-+SP,+13212-595/@-23.1433291,-46.9985012,17z/data=!4m5!3m4!1s0x94cf30360fadcd31:0xe5ae82d87526e137!8m2!3d-23.1433262!4d-46.9984766?entry=ttu" target="_blank" >  <MapPinIcon className="text-primary" size={18} />  </a> 
+        
           <p className="text-sm">{barbershop.address}</p>
         </div>
-        <div className="flex items-center gap-1 mt-2">
-          <StarIcon className="text-primary" size={18} />
-          <p className="text-sm">5,0 (899 avaliações)</p>
-        </div>
+        
       </div>
     </div>
   );

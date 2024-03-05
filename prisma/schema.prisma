@@ -31,6 +31,13 @@ model Barbershop {
   bookings Booking[]
 }
 
+model Partner {
+  id       String @id @default(uuid())
+  name     String
+  address  String
+  imageUrl String
+}
+
 model Service {
   id           String     @id @default(uuid())
   name         String
