@@ -3,7 +3,7 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT,
     "email" TEXT,
-    "number" TEXT,
+    "phone" TEXT,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
 
@@ -90,6 +90,9 @@ CREATE TABLE "VerificationToken" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");

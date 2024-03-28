@@ -17,10 +17,12 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getDayBookings } from "../_actions/get-day-bookings";
 
+
 interface ServiceItemProps {
   barbershop: Barbershop;
   service: Service;
   isAuthenticated: boolean;
+  
 }
 
 const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps) => {
@@ -33,6 +35,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
   const [submitIsLoading, setSubmitIsLoading] = useState(false);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
   const [dayBookings, setDayBookings] = useState<Booking[]>([]);
+  
 
   useEffect(() => {
     if (!date) {
@@ -66,7 +69,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
     setSubmitIsLoading(true);
 
     try {
-      if (!hour || !date || !data?.user) {
+      if (!hour || !date || !data?.user ) {
         return;
       }
 
@@ -80,6 +83,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         barbershopId: barbershop.id,
         date: newDate,
         userId: (data.user as any).id,
+        
       });
 
       setSheetIsOpen(false);
@@ -126,9 +130,9 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
   }, [date, dayBookings]);
 
   return (
-    <Card>
-      <CardContent className="p-3 w-full">
-        <div className="flex gap-4 items-center w-full">
+    <Card >
+      <CardContent className="p-3 w-full ">
+        <div className="flex gap-4 items-center " >
           <div className="relative min-h-[110px] min-w-[110px] max-h-[110px] max-w-[110px]">
             <Image
               className="rounded-lg"
@@ -140,7 +144,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             />
           </div>
 
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full " >
             <h2 className="font-bold">{service.name}</h2>
             <p className="text-sm text-gray-400">{service.description}</p>
 
@@ -151,6 +155,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                   currency: "BRL",
                 }).format(Number(service.price))}
               </p>
+             
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button variant="secondary" onClick={handleBookingClick}>
@@ -158,7 +163,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                   </Button>
                 </SheetTrigger>
 
-                <SheetContent className="p-0">
+                <SheetContent className="p-0 overflow-auto [&::-webkit-scrollbar]:hidden ">
                   <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
@@ -198,7 +203,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
 
                   {/* Mostrar lista de horários apenas se alguma data estiver selecionada */}
                   {date && (
-                    <div className="flex gap-3 overflow-x-auto py-6 px-5 border-t border-solid border-secondary [&::-webkit-scrollbar]:hidden">
+                    <div className="flex gap-3 py-6 px-5 border-t border-solid border-secondary overflow-auto [&::-webkit-scrollbar]:hidden ">
                       {timeList.map((time) => (
                         <Button
                           onClick={() => handleHourClick(time)}
@@ -251,6 +256,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                       </CardContent>
                     </Card>
                   </div>
+ 
 
                   <SheetFooter className="px-5">
                     <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
