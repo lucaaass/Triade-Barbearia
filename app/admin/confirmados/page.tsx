@@ -7,10 +7,13 @@ import { db } from "@/app/_lib/prisma";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation"
 
-
+interface SearchParams {
+  page?: string;
+  search?: string;
+}
 // Função para renderizar a página Confirmados
 
-const Confirmados = async ({ searchParams }) => {
+const Confirmados = async ({ searchParams }: { searchParams: SearchParams }) => {
   // Obtém a sessão do usuário
   const session = await getServerSession(authOptions);
 
