@@ -14,7 +14,6 @@ model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
-  phone         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -36,6 +35,8 @@ model Partner {
   name     String
   address  String
   imageUrl String
+  tel      String
+  insta    String
 }
 
 model Service {
@@ -50,9 +51,10 @@ model Service {
 }
 
 model Booking {
-  id           String     @id @default(uuid())
-  userId       String
-  user         User       @relation(fields: [userId], references: [id])
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   serviceId    String
   service      Service    @relation(fields: [serviceId], references: [id])
   barbershopId String

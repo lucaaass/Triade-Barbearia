@@ -1,6 +1,4 @@
 "use client"
-
-import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import {Barbershop} from '@prisma/client'
@@ -24,11 +22,6 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
             <CardContent className="px-1 py-0 pt-1 ">
             
             <div className=" w-full h-[159px] relative" >
-                <div className="absolute top-2 left-2 z-50 ">
-                <Badge variant="secondary" className="opacity-90 flex gap-1 items-center top-3 left-3 ">
-                    
-                </Badge>
-                </div>
 
             <Image alt={barbershop.name} src={barbershop.imageUrl}
             style={{

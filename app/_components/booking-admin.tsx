@@ -6,7 +6,15 @@ import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import { format, isFuture } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { cancelBooking } from "../_actions/cancel-booking";
@@ -24,26 +32,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { db } from "../_lib/prisma";
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
     include: {
       service: true;
       barbershop: true;
-      user: string;
-
+      user: true;
     };
   }>;
 }
 
-
-
 const BookingAdmin = ({ booking }: BookingItemProps) => {
-
-
-  //console.log("teste", lucas)
-  console.log("user booking",booking.userId)
+  console.log("user booking", booking);
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const isBookingConfirmed = isFuture(booking.date);
@@ -61,36 +62,32 @@ const BookingAdmin = ({ booking }: BookingItemProps) => {
       setIsDeleteLoading(false);
     }
   };
-console.log("booking", booking)
+
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Card className="min-w-full">
           <CardContent className="py-0 flex px-0">
             <div className="flex flex-col gap-2 py-5 flex-[3] pl-5">
-              <Badge variant={isBookingConfirmed ? "default" : "secondary"} className="w-fit">
+              <Badge
+                variant={isBookingConfirmed ? "default" : "secondary"}
+                className="w-fit"
+              >
                 {isBookingConfirmed ? "Confirmado" : "Finalizado"}
               </Badge>
               <h2 className="font-bold">{booking.service.name}</h2>
 
               <div className="flex items-center gap-2">
-                {/* <Avatar className="h-6 w-6">
-                  <AvatarImage src={booking.barbershop.imageUrl} />
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src={booking.user.image} />
 
                   <AvatarFallback>A</AvatarFallback>
-                </Avatar> */}
+                </Avatar>
 
-
-
-<h3 className="text-sm">{booking.user.name}</h3>
-
-  
-
-                
+                <h3 className="text-sm">{booking.user.name}</h3>
               </div>
-              
             </div>
-                
+
             <div className="flex flex-col items-center justify-center flex-1 border-l border-solid border-secondary">
               <p className="text-sm capitalize">
                 {format(booking.date, "MMMM", {
@@ -111,7 +108,11 @@ console.log("booking", booking)
 
         <div className="px-5">
           <div className="relative h-[180px] w-full mt-6">
-            <Image src="/barbershop-map.png" fill alt={booking.barbershop.name} />
+            <Image
+              src="/barbershop-map.png"
+              fill
+              alt={booking.barbershop.name}
+            />
 
             <div className="w-full absolute bottom-4 left-0 px-5">
               <Card>
@@ -122,15 +123,19 @@ console.log("booking", booking)
 
                   <div>
                     <h2 className="font-bold">{booking.barbershop.name}</h2>
-                    <h3 className="text-xs overflow-hidden text-nowrap text-ellipsis">{booking.barbershop.address}</h3>
+                    <h3 className="text-xs overflow-hidden text-nowrap text-ellipsis">
+                      {booking.barbershop.address}
+                    </h3>
                   </div>
                 </CardContent>
               </Card>
             </div>
           </div>
-          
 
-          <Badge variant={isBookingConfirmed ? "default" : "secondary"} className="w-fit my-3">
+          <Badge
+            variant={isBookingConfirmed ? "default" : "secondary"}
+            className="w-fit my-3"
+          >
             {isBookingConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
 
@@ -163,7 +168,7 @@ console.log("booking", booking)
 
               <div className="flex justify-between">
                 <h3 className="text-gray-400 text-sm">Cliente</h3>
-                <h4 className="text-sm">{booking.barbershop.name}</h4>
+                <h4 className="text-sm">{booking.user.name}</h4>
               </div>
             </CardContent>
           </Card>
@@ -177,21 +182,30 @@ console.log("booking", booking)
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button  className="w-full" variant="destructive">
+                <Button className="w-full" variant="destructive">
                   Cancelar Reserva
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent className="w-[90%]">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Deseja mesmo cancelar essa reserva?</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    Deseja mesmo cancelar essa reserva?
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
                     Uma vez cancelada, não será possível reverter essa ação.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex-row gap-3">
-                  <AlertDialogCancel className="w-full mt-0">Voltar</AlertDialogCancel>
-                  <AlertDialogAction className="w-full" onClick={handleCancelClick}>
-                    {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <AlertDialogCancel className="w-full mt-0">
+                    Voltar
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    className="w-full"
+                    onClick={handleCancelClick}
+                  >
+                    {isDeleteLoading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Confirmar
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -202,7 +216,6 @@ console.log("booking", booking)
       </SheetContent>
     </Sheet>
   );
-  
 };
 
 export default BookingAdmin;

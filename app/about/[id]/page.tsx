@@ -1,105 +1,53 @@
-"use client"
-import BarbershopItem from "@/app/(home)/_components/barbershop-item";
-import PartnerItem from "@/app/(home)/_components/partners-item";
-import BookingItem from "@/app/_components/booking-item";
 import Header from "@/app/_components/header";
-import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
-// import PartnerItem from "@/app/(home)/_components/partners-item";
-// import {Partner} from '@prisma/client'
-import { Partner } from "@prisma/client";
-import { format } from "date-fns";
-import { getServerSession } from "next-auth";
+import { MapPinIcon } from "lucide-react";
+import Image from "next/image";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
-interface ParterAboutProps {
-    partner: Partner;
-    
-    
-}
-export default async function ({partner}:any) {
+const About = async ({ params }: { params: { id: string } }) => {
+  const [partner] = await Promise.all([
+    db.partner.findMany({
+      where: {
+        id: params.id,
+      },
+    }),
+  ]);
 
-    console.log("dglkafkl",partner)
-   
-  
-    const [ partners] = await Promise.all([
-        db.partner.findMany({}),
-        partner
-        ? db.partner.findMany({
-            where: {
-                id:""
-                
-            },
-            
-        })
-        : Promise.resolve([]),
-    ]);
-    console.log("olá sou console",partners.id)
-  
-    return (
+  console.log("testando id", partner);
 
-
-        <>
-            {partners.map((partner: Partner) => (
-                <>
-                <div>{partner.id}</div>
-                <div>{partner.name}</div>
-                <br/>
-                </>
-            ))}
-          <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-            {/* {partners.map((partner:any) => (
-                <div key={partner.id} className="min-w-[167px] max-w-[167px]">
-                <PartnerItem key={partner.id} partner={partner} />
+  return (
+    <>
+      <Header />
+      <div className="flex justify-center px-5">
+        {partner.map((partner: any) => (
+          <div key={partner.id} className="min-w-[88vw] max-w-[88vw]">
+            <div className="px-5 pt-3 pb-6 border-b border-solid border-secondary">
+              <div className=" w-full h-[159px] relative">
+                <Image
+                  alt={partner.name}
+                  src={partner.imageUrl}
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  fill
+                  className="rounded-2xl"
+                />
               </div>
-            ))} */}
-            <div>{partners.id}
-            
-            ola</div>
+             <div> <h1 className="text-xl  font-bold">{partner.name}</h1></div>
+
+             <div  className=" flex  text-xs font-bold opacity-75">
+             <a className="ml-2  --popover-foreground" href="https://api.whatsapp.com/send?phone=5511974186292&text=Tríade Barberia em que posso ajudar ? "target="_blank " > <FaWhatsapp className="w-6 h-6 "  style={{ color: 'green' }} /> {partner.tel}</a>
+            <a className="ml-2" href="https://www.instagram.com/triade_barbearia/" target="_blank"><FaInstagram className="w-6 h-6 " style={{ color: 'orange' }} />{partner.insta} </a> 
+            <a href="https://www.google.com.br/maps/place/R.+Augusta+Teixeira+Rodrigues,+4044+-+Aglomera%C3%A7%C3%A3o+Urbana+de+Jundia%C3%AD,+Jundia%C3%AD+-+SP,+13212-595/@-23.1433291,-46.9985012,17z/data=!4m5!3m4!1s0x94cf30360fadcd31:0xe5ae82d87526e137!8m2!3d-23.1433262!4d-46.9984766?entry=ttu" target="_blank" ><MapPinIcon className="ml-2" style={{ color: 'purple' }} /> {partner.address} </a> 
+           
+             </div>
+             
+            </div>
           </div>
-        </>
-        
-    )
-  }
-/*  
+        ))}
+      </div>
+    </>
+  );
+};
 
-
-
-//console.log(partner)
-export default async function About() {
-    
-
-
-    const session = await getServerSession(authOptions);
-
-const [barbershops, partners, confirmedBookings] = await Promise.all([
-  db.barbershop.findMany({}),
-  db.partner.findMany({ }),
-  session?.user
-    ? db.booking.findMany({
-        where: {
-          userId: (session.user as any).id,
-          date: {
-            gte: new Date(),
-          },
-        },
-        include: {
-          service: true,
-          barbershop: true,
-          
-        },
-      })
-    : Promise.resolve([]),
-]);
-
-    return (
-    <div>
-        
-        <h1>Olá</h1>
-        <h2>{partner}</h2>
-     
-    </div>
-    
-    )
-}
-
-*/
+export default About;

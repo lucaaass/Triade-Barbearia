@@ -1,6 +1,4 @@
 "use client"
-import Link from 'next/link';
-import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import {Partner} from '@prisma/client'
@@ -17,7 +15,8 @@ const PartnerItem = ({ partner }: PartnerItemProps) => {
     const router = useRouter();
   
     const handleBookingClick = () => {
-        router.push(`/about/${partner.id}`);
+       router.push(`/about/${partner.id}`);
+       
     };
 
     return ( 
@@ -25,11 +24,6 @@ const PartnerItem = ({ partner }: PartnerItemProps) => {
             <CardContent className="px-1 py-0 pt-1">
             
             <div className=" w-full h-[159px] relative" >
-                <div className="absolute top-2 left-2 z-50">
-                <Badge variant="secondary" className="opacity-90 flex gap-1 items-center top-3 left-3 ">
-                    
-                </Badge>
-                </div>
 
             <Image alt={partner.name} src={partner.imageUrl}
             style={{
@@ -42,12 +36,11 @@ const PartnerItem = ({ partner }: PartnerItemProps) => {
                 
             <h2 className="font-bold mt-2 overflow-hidden text-ellipsis text-nowrap">{partner.name}</h2>
             <p className="text-sm text-gray-400 overflow-hidden text-ellipsis text-nowrap" >{partner.address}</p>
-            {/* <Button className="w-full mt-3" variant="secondary" onClick={handleBookingClick} >Ver mais</Button> */}
-              <Link href={`/about/${partner.id}`}>
+
                      
-                            <Button onClick={handleBookingClick}>Ver detalhes</Button>
+              <Button className="w-full mt-3" variant="secondary" onClick={handleBookingClick}>Ver detalhes</Button>
                        
-                    </Link>
+                    
             </div>
 
             

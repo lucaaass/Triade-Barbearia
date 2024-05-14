@@ -1,52 +1,76 @@
-// import { redirect } from "next/navigation";
-// import BarbershopItem from "../(home)/_components/barbershop-item";
-// import Header from "../_components/header";
-// import { db } from "../_lib/prisma";
-// // import Search from "../(home)/_components/search";
+import { redirect } from "next/navigation";
+import Header from "../_components/header";
+import { db } from "../_lib/prisma";
+ import Search from "../(home)/_components/search";
+import BookingAdmin from "../_components/booking-admin";
 
-// interface BarbershopsPageProps {
-//   searchParams: {
-//     search?: string;
-//   };
-// }
 
-// const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
-//   if (!searchParams.search) {
-//     return redirect("/");
-//   }
+interface BarbershopsPageProps {
+  searchParams: {
+    search?: string;
+  };
+}
 
-//   const barbershops = await db.barbershop.findMany({
-//     where: {
-//       name: {
-//         contains: searchParams.search,
-//         mode: "insensitive",
-//       },
-//     },
-//   });
+const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
+  if (!searchParams.search) {
+    return redirect("/");
+  }
+  
 
-//   // return (
-//   //   <>
-//   //     <Header />
+  const bookings = await db.booking.findMany({
+    where: {
+      OR: [
+        {
+          user: {
+            name: {
+              contains: searchParams.search,
+              mode: "insensitive"
+            }
+          }
+        },
+        {
+          service: {
+            name: {
+              contains: searchParams.search,
+              mode: "insensitive"
+            }
+          }
+        },
+     
 
-//   //     <div className="px-5 py-6 flex flex-col gap-6">
-//   //       {/* <Search
-//   //         defaultValues={{
-//   //           search: searchParams.search,
-//   //         }}
-//   //       />
+      ]
+    },
+    include:{
+      service: true,
+      user: true,
+      barbershop:true,
+   
+    }
+  })
 
-//   //       <h1 className="text-gray-400 font-bold text-xs uppercase">Resultados para &quot;{searchParams.search}&quot;</h1>
+  return (
+    <>
+       <Header />
 
-//   //       <div className="grid grid-cols-2 gap-4">
-//   //         {barbershops.map((barbershop:any) => (
-//   //           <div key={barbershop.id} className="w-full">
-//   //             <BarbershopItem barbershop={barbershop} />
-//   //           </div>
-//   //         ))}
-//   //       </div>
-//   //     </div> */}
-//   //   </>
-//   );
-// };
+       <div className="px-5 py-6 flex flex-col gap-6">
+         <Search
+           defaultValues={{
+             search: searchParams.search,
+          }}
+         />
 
-// export default BarbershopsPage;
+         <h1 className="text-gray-400 font-bold text-xs uppercase">Resultados para &quot;{searchParams.search}&quot;</h1>
+
+        <div className="grid grid-cols-2 gap-4">
+           {bookings.map((booking:any) => (
+             <div key={booking.id} className="w-full">
+               <BookingAdmin booking={booking}  />
+             </div>
+          ))}
+        </div>
+     </div>
+    </>
+  );
+};
+
+export default BarbershopsPage;
