@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from "../_components/header";
 import { Button } from "../_components/ui/button";
@@ -8,25 +9,44 @@ const Admin = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  useEffect(() => {
+    console.log("Status:", status);
+    console.log("Session:", session);
+
+    if (status === "loading") return; // Não faz nada enquanto carrega
+
+    if (!session || !session.user || !session.user.email) {
+      console.log("Usuário não está logado ou email não está disponível. Redirecionando para a página inicial.");
+      router.push('/');
+      return;
+    }
+
+    // Verifica se o usuário é admin
+    const isAdmin = ["lucasmarques630@gmail.com", "ewerprofissional@gmail.com", "2210727@escolas.anchieta.br"].includes(session.user.email);
+    console.log("Is admin:", isAdmin);
+    if (!isAdmin) {
+      console.log("Usuário não é um administrador. Redirecionando para a página inicial.");
+      router.push('/');
+    }
+  }, [status, session, router]);
+
   if (status === "loading") {
     return <div>Carregando...</div>;
   }
 
-  if (!session || !session.user) {
-    router.push('/');
-    return null;
+  if (!session || !session.user || !session.user.email) {
+    console.log("Sessão não está definida ou usuário não está logado ou email não está disponível. Retornando null.");
+    return null; // Retorna null se a sessão ainda não estiver definida ou se o email do usuário não estiver disponível
   }
 
-  // Verifica se o usuário está autenticado e se é o usuário "Lucas Marques"
-  const isLucasMarques = session.user.email === "lucasmarques630@gmail.com" || session.user.email === "ewerprofissional@gmail.com" ;
-
-  // Se o usuário autenticado não for "Lucas Marques", redireciona para a página inicial
-  if (!isLucasMarques) {
-    router.push('/');
-    return null;
+  // Garantir que apenas usuários permitidos vejam o conteúdo
+  const isAdmin = ["lucasmarques630@gmail.com", "ewerprofissional@gmail.com", "2210727@escolas.anchieta.br"].includes(session.user.email);
+  console.log("Is admin:", isAdmin);
+  if (!isAdmin) {
+    console.log("Usuário não é um administrador. Retornando null.");
+    return null; // Retorna null se o usuário não for permitido (embora o redirecionamento já tenha ocorrido no useEffect)
   }
 
-  // Se o usuário autenticado for "Lucas Marques", renderiza a página de administração
   const handleClickConfirmados = () => {
     router.push('/admin/confirmados');
   };

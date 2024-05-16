@@ -15,9 +15,9 @@ const SideMenu = () => {
   const handleLoginClick = () => signIn("google");
 
   // Verifica se o usuário está autenticado e se o nome de usuário é "Lucas"
-  const isLucas = data?.user?.name === "Lucas Marques" ;
+  const isAdmin = data?.user?.email === "2210727@escolas.anchieta.br" || data?.user?.email === "lucasmarques630@gmail.com" || data?.user?.email === "ewerprofissional@gmail.com" ;
   console.log("Session data:", data); // Adiciona um log dos dados da sessão
-  console.log("User name:", data?.user?.name); // Adiciona um log do nome do usuário
+  console.log("User email:", data?.user?.email); // Adiciona um log do nome do usuário
 
 
   if (!data) {
@@ -83,7 +83,7 @@ const SideMenu = () => {
             Agendamentos
           </Link>
         </Button>
-        {isLucas && (
+        {isAdmin && (
           <Button variant="outline" className="justify-start" asChild>
             <Link href="/admin">
               <LockKeyhole size={18} className="mr-2" />
