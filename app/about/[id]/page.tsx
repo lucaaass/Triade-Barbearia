@@ -39,7 +39,7 @@ const About = async ({ params }: AboutProps) => {
           <div className="space-y-4 font-bold">
             <a
               className="flex items-center space-x-2"
-              href={`https://api.whatsapp.com/send?phone=${partner.tel}&text=Tríade Barberia em que posso ajudar ?`}
+              href={partner.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -48,7 +48,7 @@ const About = async ({ params }: AboutProps) => {
             </a>
             <a
               className="flex items-center space-x-2"
-              href={`https://www.instagram.com/${partner.insta}`}
+              href={partner.instaLink}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -57,7 +57,7 @@ const About = async ({ params }: AboutProps) => {
             </a>
             <a
               className="flex items-center space-x-2"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(partner.address)}`}
+              href={partner.addressLink}
               target="_blank"
               rel="noopener noreferrer"
             >

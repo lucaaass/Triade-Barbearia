@@ -20,7 +20,7 @@ async function seedDatabase() {
           {
             name: "Cabelo e Barba",
             description: "Modelagem completa para destacar sua masculinidade.",
-            price: 30.0,
+            price: 45.0,
             imageUrl: "https://utfs.io/f/e6bdffb6-24a9-455b-aba3-903c2c2b5bde-1jo6tu.png",
           },
           {
@@ -45,30 +45,42 @@ async function seedDatabase() {
       {
         name: "MB Lanches",
         address: "Av. Presbítero Manoel Antônio dias filho, 954",
+        addressLink:"https://www.google.com/maps/place/Av.+Presb%C3%ADtero+Manoel+Ant%C3%B4nio+Dias+Filho,+954+-+Parque+Res.+Jundia%C3%AD,+Jundia%C3%AD+-+SP,+13212-461/@-23.1455633,-47.0113602,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf304de416062d:0x329ea984af11a4ba!8m2!3d-23.1455633!4d-47.0087853!16s%2Fg%2F11f1mv2l71?entry=ttu",
         imageUrl: "https://utfs.io/f/198084e2-54e9-4bcf-8c75-eb511bc3d820-jvkbri.jpeg",
         tel: "(11)97212-5096",
+        whatsapp:"https://api.whatsapp.com/send?phone=5511972125096&text=Olá,Gostaria de fazer um pedido!",
         insta: "@MB lanches",
+        instaLink:"https://www.instagram.com/mblanches_02?igsh=MXdhcjFicHVkMjVnYQ==",
       },
       {
         name: "Assistec Edu",
         address: "Av. José Benedito Constatino Rosa, 789",
+        addressLink:"não informado",
         imageUrl: "https://utfs.io/f/23a5a392-9078-4510-9397-f2b8d093c9c8-jvkbsd.jpeg",
         tel: "Não informado",
+        whatsapp: "Não informado",
         insta: "Não informado",
+        instaLink:"Não informado",
       },
       {
         name: "Cílios e Beleza As",
         address: "Não informado",
+        addressLink: "Não informado",
         imageUrl: "https://utfs.io/f/a9f1a215-e59a-4f6c-8344-23a3b877e63a-itrtgb.01.08.jpeg",
         tel: "Não informado",
+        whatsapp: "Não informado",
         insta: "Não informado",
+        instaLink: "Não informado",
       },
       {
         name: "Ousadia",
         address: "Não informado",
+        addressLink: "Não informado",
         imageUrl: "https://utfs.io/f/55ebaa86-57e3-46de-858e-d92c7311806f-itrtgb.01.07.jpeg",
         tel: "Não informado",
+        whatsapp: "Não informado",
         insta: "Não informado",
+        instaLink: "Não informado",
       },
       // {
       //   name: "Cabelo & Cia.",
@@ -118,14 +130,17 @@ async function seedDatabase() {
       }
 
       // Inserir dados dos parceiros
-      for (const { name, address, imageUrl, tel, insta } of partnersData) {
+      for (const { name, address, addressLink, imageUrl, tel, whatsapp, insta, instaLink } of partnersData) {
         const partner = await prisma.partner.create({
           data: {
             name,
             address,
+            addressLink,
             imageUrl,
             tel,
+            whatsapp,
             insta,
+            instaLink,
           },
         });
         console.log("Parceiro criado com sucesso:", partner);

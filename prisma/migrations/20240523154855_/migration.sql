@@ -24,9 +24,12 @@ CREATE TABLE "Partner" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
+    "addressLink" TEXT NOT NULL,
     "imageUrl" TEXT NOT NULL,
     "tel" TEXT NOT NULL,
+    "whatsapp" TEXT NOT NULL,
     "insta" TEXT NOT NULL,
+    "instaLink" TEXT NOT NULL,
 
     CONSTRAINT "Partner_pkey" PRIMARY KEY ("id")
 );

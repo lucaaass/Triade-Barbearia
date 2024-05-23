@@ -31,12 +31,15 @@ model Barbershop {
 }
 
 model Partner {
-  id       String @id @default(uuid())
-  name     String
-  address  String
-  imageUrl String
-  tel      String
-  insta    String
+  id          String @id @default(uuid())
+  name        String
+  address     String
+  addressLink String
+  imageUrl    String
+  tel         String
+  whatsapp    String
+  insta       String
+  instaLink   String
 }
 
 model Service {
