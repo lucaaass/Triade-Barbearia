@@ -42,6 +42,16 @@ async function seedDatabase() {
 
     // Dados dos parceiros
     const partnersData = [
+        {
+        name: "Gama tattoo",
+        address: "Av. Eunice Cavalcante de Souza Queiroz, 822 - Parque Res. Jundiaí,",
+        addressLink:"https://www.google.com.br/maps/place/Gama+tattoo+-+Realismo/@-23.1485786,-47.0099585,17z/data=!3m1!4b1!4m6!3m5!1s0x94cf279b77659c23:0x4d87f2a818af4278!8m2!3d-23.1485786!4d-47.0073836!16s%2Fg%2F11t2r77s71?entry=ttu",
+        imageUrl: "https://utfs.io/f/83ff9be0-4658-4a1e-84db-53151007a760-wzrtqd.jpeg",
+        tel: "(11)94235-0984",
+        whatsapp:"https://api.whatsapp.com/send?phone=5511942350984&text=Olá,Gostaria de saber mais informações!",
+       insta: "@Gamatattoo",
+       instaLink:"https://www.instagram.com/gamatattoo/",
+       },
       {
         name: "MB Lanches",
         address: "Av. Presbítero Manoel Antônio dias filho, 954",
@@ -50,7 +60,7 @@ async function seedDatabase() {
         tel: "(11)97212-5096",
         whatsapp:"https://api.whatsapp.com/send?phone=5511972125096&text=Olá,Gostaria de fazer um pedido!",
         insta: "@MB lanches",
-        instaLink:"https://www.instagram.com/mblanches_02?igsh=MXdhcjFicHVkMjVnYQ==",
+        instaLink:"https://www.instagram.com/mblanches_02/",
       },
       {
         name: "Assistec Edu",
@@ -82,13 +92,7 @@ async function seedDatabase() {
         insta: "Não informado",
         instaLink: "Não informado",
       },
-      // {
-      //   name: "Cabelo & Cia.",
-      //   address: "Estrada do Machado, 303",
-      //   imageUrl: "https://utfs.io/f/2f9278ba-3975-4026-af46-64af78864494-16u.png",
-      //   tel: "(11)974747474",
-      //   insta: "@instagram",
-      // },
+     
       // {
       //   name: "Machado & Tesoura",
       //   address: "Avenida Elegante, 404",

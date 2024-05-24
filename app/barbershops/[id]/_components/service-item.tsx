@@ -159,7 +159,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                     />
                   </div>
                   {date && (
-                    <div className="flex gap-3 py-6 px-5 border-t border-solid border-secondary overflow-auto [&::-webkit-scrollbar]:hidden">
+                     <div className="flex flex-wrap gap-3 py-6 px-5 border-t border-solid border-secondary overflow-auto lg:overflow-hidden [&::-webkit-scrollbar]:hidden">
                       {timeList.map((time) => (
                         <Button
                           onClick={() => handleHourClick(time)}
