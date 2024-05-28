@@ -6,7 +6,15 @@ import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import { format, isFuture } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { cancelBooking } from "../_actions/cancel-booking";
@@ -59,7 +67,10 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         <Card className="min-w-full">
           <CardContent className="py-0 flex px-0">
             <div className="flex flex-col gap-2 py-5 flex-[3] pl-5">
-              <Badge variant={isBookingConfirmed ? "default" : "secondary"} className="w-fit">
+              <Badge
+                variant={isBookingConfirmed ? "default" : "secondary"}
+                className="w-fit"
+              >
                 {isBookingConfirmed ? "Confirmado" : "Finalizado"}
               </Badge>
               <h2 className="font-bold">{booking.service.name}</h2>
@@ -95,7 +106,11 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
         <div className="px-5">
           <div className="relative h-[180px] w-full mt-6">
-            <Image src="/barbershop-map.png" fill alt={booking.barbershop.name} />
+            <Image
+              src="/barbershop-map.png"
+              fill
+              alt={booking.barbershop.name}
+            />
 
             <div className="w-full absolute bottom-4 left-0 px-5">
               <Card>
@@ -104,18 +119,23 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                     <AvatarImage src={booking.barbershop.imageUrl} />
                   </Avatar>
 
-        <div className="max-w-xs overflow-hidden">
-  <h2 className="font-bold text-sm">{booking.barbershop.name}</h2>
-  <h3 className="text-xs overflow-hidden whitespace-nowrap overflow-ellipsis">{booking.barbershop.address}</h3>
-</div>
-
-
+                  <div className="max-w-xs overflow-hidden">
+                    <h2 className="font-bold text-sm">
+                      {booking.barbershop.name}
+                    </h2>
+                    <h3 className="text-xs overflow-hidden whitespace-nowrap overflow-ellipsis">
+                      {booking.barbershop.address}
+                    </h3>
+                  </div>
                 </CardContent>
               </Card>
             </div>
           </div>
 
-          <Badge variant={isBookingConfirmed ? "default" : "secondary"} className="w-fit my-3">
+          <Badge
+            variant={isBookingConfirmed ? "default" : "secondary"}
+            className="w-fit my-3"
+          >
             {isBookingConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
 
@@ -143,7 +163,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
               <div className="flex justify-between">
                 <h3 className="text-gray-400 text-sm">Horário</h3>
-                <h4 className="text-sm">{format(booking.date, "hh:mm")}</h4>
+                <h4 className="text-sm">{format(booking.date, "HH:mm")}</h4>
               </div>
 
               <div className="flex justify-between">
@@ -162,21 +182,35 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button disabled={!isBookingConfirmed || isDeleteLoading} className="w-full" variant="destructive">
+                <Button
+                  disabled={!isBookingConfirmed || isDeleteLoading}
+                  className="w-full"
+                  variant="destructive"
+                >
                   Cancelar Reserva
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent className="w-[90%]">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Deseja mesmo cancelar essa reserva?</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    Deseja mesmo cancelar essa reserva?
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
                     Uma vez cancelada, não será possível reverter essa ação.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex-row gap-3">
-                  <AlertDialogCancel className="w-full mt-0">Voltar</AlertDialogCancel>
-                  <AlertDialogAction disabled={isDeleteLoading} className="w-full" onClick={handleCancelClick}>
-                    {isDeleteLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <AlertDialogCancel className="w-full mt-0">
+                    Voltar
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    disabled={isDeleteLoading}
+                    className="w-full"
+                    onClick={handleCancelClick}
+                  >
+                    {isDeleteLoading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     Confirmar
                   </AlertDialogAction>
                 </AlertDialogFooter>

@@ -121,9 +121,11 @@ const BookingAdmin = ({ booking }: BookingItemProps) => {
                     <AvatarImage src={booking.barbershop.imageUrl} />
                   </Avatar>
 
-                  <div>
-                    <h2 className="font-bold">{booking.barbershop.name}</h2>
-                    <h3 className="text-xs overflow-hidden text-nowrap text-ellipsis">
+                  <div className="max-w-xs overflow-hidden">
+                    <h2 className="font-bold text-sm">
+                      {booking.barbershop.name}
+                    </h2>
+                    <h3 className="text-xs overflow-hidden whitespace-nowrap overflow-ellipsis">
                       {booking.barbershop.address}
                     </h3>
                   </div>
@@ -163,7 +165,7 @@ const BookingAdmin = ({ booking }: BookingItemProps) => {
 
               <div className="flex justify-between">
                 <h3 className="text-gray-400 text-sm">Horário</h3>
-                <h4 className="text-sm">{format(booking.date, "hh:mm")}</h4>
+                <h4 className="text-sm">{format(booking.date, "HH:mm")}</h4>
               </div>
 
               <div className="flex justify-between">
