@@ -71,6 +71,19 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
         userId: (data.user as any).id,
       });
 
+      // Enviar notificação ao administrador
+      await fetch('/barbershops/_components/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service,
+          date: newDate,
+          user: data.user,
+        }),
+      });
+
       setSheetIsOpen(false);
       setHour(undefined);
       setDate(undefined);
@@ -159,7 +172,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                     />
                   </div>
                   {date && (
-                     <div className="flex flex-wrap gap-3 py-6 px-5 border-t border-solid border-secondary overflow-auto lg:overflow-hidden [&::-webkit-scrollbar]:hidden">
+                    <div className="flex flex-wrap gap-3 py-6 px-5 border-t border-solid border-secondary overflow-auto lg:overflow-hidden [&::-webkit-scrollbar]:hidden">
                       {timeList.map((time) => (
                         <Button
                           onClick={() => handleHourClick(time)}
@@ -188,27 +201,26 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                           <div className="flex justify-between">
                             <h3 className="text-gray-400 text-sm">Data</h3>
                             <h4 className="text-sm">
-                              {format(date, "dd 'de' MMMM", { locale: ptBR })}
+                              {format(date, "'Dia' dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
                             </h4>
                           </div>
                         )}
                         {hour && (
                           <div className="flex justify-between">
-                            <h3 className="text-gray-400 text-sm">Horário</h3>
+                            <h3 className="text-gray-400 text-sm">Hora</h3>
                             <h4 className="text-sm">{hour}</h4>
                           </div>
                         )}
-                        <div className="flex justify-between">
-                          <h3 className="text-gray-400 text-sm">Barbearia</h3>
-                          <h4 className="text-sm">{barbershop.name}</h4>
-                        </div>
                       </CardContent>
                     </Card>
                   </div>
-                  <SheetFooter className="px-5">
-                    <Button onClick={handleBookingSubmit} disabled={!hour || !date || submitIsLoading}>
-                      {submitIsLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Confirmar reserva
+                  <SheetFooter className="border-t border-solid border-secondary py-6 px-5">
+                    <Button
+                      onClick={handleBookingSubmit}
+                      disabled={!hour || !date || submitIsLoading}
+                      className="w-full"
+                    >
+                      {submitIsLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Confirmar Reserva"}
                     </Button>
                   </SheetFooter>
                 </SheetContent>
@@ -216,10 +228,9 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             </div>
           </div>
         </div>
-     
-
       </CardContent>
     </Card>
+
   );
 };
 
