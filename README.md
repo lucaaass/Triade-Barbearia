@@ -16,32 +16,25 @@ Website institucional para barbearia, desenvolvido com **Next.js**, **Tailwind C
 
 ---
 
-## 📸 Demonstração
-
-![Captura de tela do projeto](https://via.placeholder.com/800x400.png?text=Captura+de+Tela+do+Projeto)
-
----
-
 ## 🛠️ Como Rodar o Projeto Localmente
 
 1. Clone o repositório:
 
-   ```bash
+
    git clone https://github.com/lucaaass/Triade-Barbearia.git
    cd Triade-Barbearia
 Instale as dependências:
 
-bash
+
 Copiar código
 npm install
 Configure o banco de dados com o Prisma:
 
-bash
+
 Copiar código
 npx prisma migrate dev
 Inicie o servidor de desenvolvimento:
 
-bash
 Copiar código
 npm run dev
 Acesse o projeto em http://localhost:3000.
